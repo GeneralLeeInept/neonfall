@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bv1q5oqey0ii6"]
+
+[ext_resource type="Texture2D" uid="uid://clckrj1ufahjk" path="res://neonfall_icon_logo.png" id="1_rupst"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="NeonfallIconLogo" type="Sprite2D" parent="."]
+position = Vector2(236, 118)
+texture = ExtResource("1_rupst")
