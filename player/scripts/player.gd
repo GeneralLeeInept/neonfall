@@ -16,7 +16,8 @@ var previous_state : PlayerState:
 #endregion
 
 #region Player state
-var direction : Vector2 = Vector2.ZERO
+var direction: Vector2 = Vector2.ZERO
+var gravity_modifier: float = 1
 #endregion
 
 func _ready() -> void:
@@ -34,7 +35,7 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
-		velocity += get_gravity() * delta
+		velocity += get_gravity() * delta * gravity_modifier
 	move_and_slide()
 	change_state( current_state.physics_process( delta ) )
 
