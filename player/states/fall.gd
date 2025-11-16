@@ -8,9 +8,6 @@ class_name PlayerStateFall extends PlayerState
 var coyote_timer : float
 var jump_buffer : float
 
-func init() -> void:
-	pass
-
 
 func enter() -> void:
 	player.add_debug_indicator( Color.YELLOW )
@@ -54,6 +51,6 @@ func process( delta: float ) -> PlayerState:
 	return next_state
 
 
-func physics_process(delta: float) -> PlayerState:
+func physics_process( _delta: float ) -> PlayerState:
 	player.velocity.x = player.direction.x * player.move_speed
 	return next_state

@@ -3,14 +3,21 @@ class_name Player extends CharacterBody2D
 const DEBUG_JUMP_INDICATOR = preload("uid://ct7jlp1pjieu2")
 
 #region Properties
-@export var move_speed: float = 100
+@export_range(0, 100, 1, "or_greater") var move_speed: float = 100
+@export_range(0, 1, 0.025) var friction: float = 0.7
 #endregion
 
+#region Nodes
+@onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var collision_standing: CollisionShape2D = $CollisionStanding
+@onready var collision_crouching: CollisionShape2D = $CollisionCrouching
+@onready var one_way_platform_shape_cast: ShapeCast2D = $OneWayPlatformShapeCast
+#endregion
 
 #region State Machine
 var states : Array[PlayerState]
 var current_state : PlayerState:
-	get : return states.front()
+	get : return states.front() if not states.is_empty() else null
 var previous_state : PlayerState:
 	get : return states[1]
 #endregion
@@ -36,6 +43,7 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta * gravity_modifier
+	$Debug/Velocity.text = str(velocity)
 	move_and_slide()
 	change_state( current_state.physics_process( delta ) )
 
@@ -57,7 +65,7 @@ func change_state( new_state: PlayerState ) -> void:
 	states.push_front(new_state)
 	current_state.enter()
 	states.resize(3)
-	$Label.text = current_state.name
+	$Debug/State.text = current_state.name
 
 
 func update_direction() -> void:
