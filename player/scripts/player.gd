@@ -1,6 +1,11 @@
 class_name Player extends CharacterBody2D
 
-@export var player_speed: int = 100
+const DEBUG_JUMP_INDICATOR = preload("uid://ct7jlp1pjieu2")
+
+#region Properties
+@export var move_speed: float = 100
+#endregion
+
 
 #region State Machine
 var states : Array[PlayerState]
@@ -51,7 +56,19 @@ func change_state( new_state: PlayerState ) -> void:
 	states.push_front(new_state)
 	current_state.enter()
 	states.resize(3)
+	$Label.text = current_state.name
 
 
 func update_direction() -> void:
-	direction = Input.get_vector("left", "right", "up", "down" )
+	var x_axis = Input.get_axis("left", "right")
+	var y_axis = Input.get_axis("up", "down")
+	direction = Vector2(x_axis, y_axis)
+
+
+func add_debug_indicator(color : Color) -> void:
+	var d : Node2D = DEBUG_JUMP_INDICATOR.instantiate()
+	d.global_position = global_position
+	d.modulate = color
+	get_tree().root.add_child(d)
+	await get_tree().create_timer( 3 ).timeout
+	d.queue_free()

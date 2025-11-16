@@ -1,5 +1,4 @@
-class_name PlayerStateRun extends PlayerState
-
+class_name PlayerStateFall extends PlayerState
 
 func init() -> void:
 	pass
@@ -10,23 +9,19 @@ func enter() -> void:
 
 
 func exit() -> void:
-	pass
+	player.add_debug_indicator( Color.RED )
 
 
 func handle_input( event: InputEvent ) -> PlayerState:
-	if event.is_action_pressed( "jump" ):
-		return jump
 	return next_state
 
 
 func process( delta: float ) -> PlayerState:
-	if player.direction.x == 0:
+	if player.is_on_floor():
 		return idle
 	return next_state
 
 
 func physics_process(delta: float) -> PlayerState:
 	player.velocity.x = player.direction.x * player.move_speed
-	if not player.is_on_floor():
-		return fall
 	return next_state
