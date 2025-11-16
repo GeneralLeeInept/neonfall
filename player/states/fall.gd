@@ -7,6 +7,7 @@ class_name PlayerStateFall extends PlayerState
 
 var coyote_timer : float
 var jump_buffer : float
+var jump_down : bool
 
 
 func enter() -> void:
@@ -22,6 +23,7 @@ func enter() -> void:
 func exit() -> void:
 	player.add_debug_indicator( Color.RED )
 	player.gravity_modifier = 1
+	jump_buffer = 0
 
 
 func handle_input( event: InputEvent ) -> PlayerState:
@@ -30,13 +32,18 @@ func handle_input( event: InputEvent ) -> PlayerState:
 			return jump
 		else:
 			jump_buffer = jump_buffer_time
+			jump_down = player.direction.y > 0.5
 	return next_state
 
 
 func process( delta: float ) -> PlayerState:
 	if player.is_on_floor():
 		if jump_buffer > 0:
-			return jump
+			if jump_down and player.one_way_platform_shape_cast.is_colliding():
+				player.position.y += 4
+				return fall
+			else:
+				return jump
 		return idle
 		
 	if coyote_timer > delta:

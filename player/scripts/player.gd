@@ -3,8 +3,8 @@ class_name Player extends CharacterBody2D
 const DEBUG_JUMP_INDICATOR = preload("uid://ct7jlp1pjieu2")
 
 #region Properties
-@export_range(0, 100, 1, "or_greater") var move_speed: float = 100
-@export_range(0, 1, 0.025) var friction: float = 0.7
+@export_range(0, 100, 1, "or_greater") var move_speed: float = 150
+@export_range(0, 1, 0.025) var friction: float = 0.75
 #endregion
 
 #region Nodes
@@ -57,8 +57,6 @@ func initialize_states() -> void:
 
 func change_state( new_state: PlayerState ) -> void:
 	if new_state == null:
-		return
-	if new_state == current_state:
 		return
 	if current_state:
 		current_state.exit()

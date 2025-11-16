@@ -120,5 +120,3 @@ one_way_collision = true
 
 [node name="Player" parent="." instance=ExtResource("1_rupst")]
 position = Vector2(277, 251)
-move_speed = 200.0
-friction = 0.8
