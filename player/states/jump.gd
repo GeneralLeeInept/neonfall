@@ -8,11 +8,11 @@ func init() -> void:
 
 func enter() -> void:
 	player.add_debug_indicator( Color.LIME_GREEN )
-	player.velocity.y -= jump_velocity
+	player.velocity.y = -jump_velocity
 
 
 func exit() -> void:
-	player.add_debug_indicator( Color.YELLOW )
+	pass
 
 
 func handle_input( event: InputEvent ) -> PlayerState:
