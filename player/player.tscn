@@ -43,7 +43,6 @@ script = ExtResource("4_qjkh3")
 [node name="Fall" type="Node" parent="States"]
 unique_name_in_owner = true
 script = ExtResource("5_g6k8r")
-jump_buffer_time = 1.0
 
 [node name="Crouch" type="Node" parent="States"]
 unique_name_in_owner = true
@@ -67,7 +66,7 @@ debug_color = Color(0, 0.6, 0.69803923, 0.23137255)
 [node name="OneWayPlatformShapeCast" type="ShapeCast2D" parent="."]
 shape = SubResource("RectangleShape2D_g6k8r")
 target_position = Vector2(0, 0)
-collision_mask = 2
+collision_mask = 3
 
 [node name="Debug" type="Node2D" parent="."]
 
@@ -87,3 +86,5 @@ offset_bottom = -24.0
 scale = Vector2(0.32693607, 0.27568942)
 text = "(0,0)"
 horizontal_alignment = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]

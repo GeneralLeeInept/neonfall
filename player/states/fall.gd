@@ -39,7 +39,7 @@ func handle_input( event: InputEvent ) -> PlayerState:
 func process( delta: float ) -> PlayerState:
 	if player.is_on_floor():
 		if jump_buffer > 0:
-			if jump_down and player.one_way_platform_shape_cast.is_colliding():
+			if jump_down and player.can_jump_down():
 				player.position.y += 4
 				return fall
 			else:

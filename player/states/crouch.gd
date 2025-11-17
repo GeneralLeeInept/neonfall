@@ -19,7 +19,7 @@ func exit() -> void:
 
 func handle_input( event: InputEvent ) -> PlayerState:
 	if event.is_action_pressed( "jump" ):
-		if player.one_way_platform_shape_cast.is_colliding():
+		if player.can_jump_down():
 			player.position.y += 4
 			return fall
 		else:

@@ -79,3 +79,8 @@ func add_debug_indicator(color : Color) -> void:
 	get_tree().root.add_child(d)
 	await get_tree().create_timer( 3 ).timeout
 	d.queue_free()
+
+
+func can_jump_down() -> bool:
+	return one_way_platform_shape_cast.collision_result.all(func(x): return x.collider is CollisionObject2D and x.collider.collision_layer == 2)
+	#return one_way_platform_shape_cast.is_colliding()
