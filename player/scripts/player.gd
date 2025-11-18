@@ -82,5 +82,14 @@ func add_debug_indicator(color : Color) -> void:
 
 
 func can_jump_down() -> bool:
-	return one_way_platform_shape_cast.collision_result.all(func(x): return x.collider is CollisionObject2D and x.collider.collision_layer == 2)
-	#return one_way_platform_shape_cast.is_colliding()
+	for result in one_way_platform_shape_cast.collision_result:
+		if result.collider is TileMapLayer:
+			var tm: TileMapLayer = result.collider
+			var cell = tm.local_to_map(result.point)
+			var data = tm.get_cell_tile_data(cell)
+			if data and not data.is_collision_polygon_one_way(0, 0):
+				return false
+		elif result.collider is CollisionObject2D:
+			if !result.collider.is_shape_owner_one_way_collision_enabled( 0 ):
+				return false
+	return true

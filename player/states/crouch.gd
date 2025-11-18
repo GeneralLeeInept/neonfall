@@ -6,7 +6,6 @@ func enter() -> void:
 	player.sprite_2d.position.y = -15.0
 	player.collision_crouching.disabled = false
 	player.collision_standing.disabled = true
-	print("player.velocity = ", player.velocity)
 	player.add_debug_indicator(Color.BLUE_VIOLET)
 
 

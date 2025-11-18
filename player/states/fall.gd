@@ -12,10 +12,10 @@ var jump_down : bool
 
 func enter() -> void:
 	player.add_debug_indicator( Color.YELLOW )
-	if player.previous_state == jump:
-		coyote_timer = 0
-	else:
+	if player.previous_state == idle or player.previous_state == run:
 		coyote_timer = coyote_time
+	else:
+		coyote_timer = 0
 	jump_buffer = 0
 	player.gravity_modifier = fall_gravity_modifier
 
@@ -44,7 +44,10 @@ func process( delta: float ) -> PlayerState:
 				return fall
 			else:
 				return jump
-		return idle
+		elif player.direction.y > 0.5:
+			return crouch
+		else:
+			return idle
 		
 	if coyote_timer > delta:
 		coyote_timer -= delta
